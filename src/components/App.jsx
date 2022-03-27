@@ -7,17 +7,6 @@ import TopNav from './TopNav';
 import './App.scss';
 
 class App extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      selectTab: 'features',
-    };
-  }
-
-  handleSelect = (currentTab) => {
-    this.setState({ selectTab: currentTab });
-  }
-
   render() {
     const { children } = this.props;
     return (
@@ -29,15 +18,12 @@ class App extends React.PureComponent {
           direction="row"
           elevation={0}
           justify="center"
-          spacing={0}
+          spacing={2}
         >
           <Grid item xs={12}>
             <TopNav />
           </Grid>
-          <Grid item xs={2}>
-            {/* <Sidebar /> */}
-          </Grid>
-          <Grid item xs={10}>
+          <Grid item xs={12}>
             {children}
           </Grid>
         </Grid>

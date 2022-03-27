@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 mongoose.set('useCreateIndex', true);
 
-const connectionUri = 'mongodb://localhost/stackoverflow';
+const connectionUri = 'mongodb://rash:qazwsxedc@sandbox-shard-00-00.htgt6.mongodb.net:27017,sandbox-shard-00-01.htgt6.mongodb.net:27017,sandbox-shard-00-02.htgt6.mongodb.net:27017/musicstreet?replicaSet=atlas-ec4pa3-shard-0&ssl=true&authSource=admin';
 
 const connectionOptions = {
   keepAlive: true,

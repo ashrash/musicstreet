@@ -12,7 +12,7 @@ class TopNav extends React.PureComponent {
       <AppBar
         className="top-navbar"
         elevation={0}
-        position="fixed"
+        position="static"
       >
         <Toolbar style={{ display: 'flex', justifyContent: 'space-between' }}>
           <Typography noWrap style={{ color: '#1ed760' }} variant="h6">
