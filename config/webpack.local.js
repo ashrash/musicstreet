@@ -15,7 +15,14 @@ const config = merge(
       hot: true,
       port,
       proxy: {
-        '/api': 'http://localhost:3000',
+        '/api': {
+          target: 'http://localhost:3000',
+          secure: false,
+          changeOrigin: true,
+          pathRewrite: {
+            '^/api': '',
+          },
+        },
       },
       publicPath: '/',
       noInfo: false,

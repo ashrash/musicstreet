@@ -12,14 +12,14 @@ app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
 app.use(express.static(path.resolve(__dirname, '../dist/')));
 
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
+// app.set('views', path.join(__dirname, 'views'));
+// app.set('view engine', 'pug');
 
 routes(app);
 
-app.get('*', (req, res) => {
-  res.render('index');
-});
+// app.get('*', (req, res) => {
+//   res.render('index');
+// });
 
 app.use((req, res, next) => {
   const error = new Error('Not Found');

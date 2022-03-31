@@ -7,9 +7,9 @@ import TextField from '@material-ui/core/TextField';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import Paper from '@material-ui/core/Paper';
-import './toggle.scss';
+import './Landing.scss';
 
-class Toggle extends React.PureComponent {
+class Landing extends React.PureComponent {
   render() {
     const fabStyle = {
       right: 50,
@@ -39,4 +39,4 @@ const mapStateToProps = (dispatch) => ({
 const mapDispatchToProps = (dispatch) => ({
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Toggle);
+export default connect(mapStateToProps, mapDispatchToProps)(Landing);

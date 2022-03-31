@@ -1,25 +1,63 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import {
+  Route, Switch, withRouter,
+} from 'react-router-dom';
 import App from 'components/App';
 import Login from 'containers/Login';
-
-import Toggle from './Toggle';
+import Landing from 'containers/Landing';
+import selectors from '../state/ducks/user/selectors';
 
 class ProtectedRoutes extends React.Component {
-  renderToggle = () => <Toggle />
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
 
-  renderLogin = () => <Login />
+  componentDidMount() {
+    const { isAuthenticated, history } = this.props;
+    if (!isAuthenticated) {
+      history.push('/login');
+    } else {
+      history.push('/player');
+    }
+  }
+
+  renderLogin = () => {
+    const { isAuthenticated, history } = this.props;
+    return <Login history={history} isAuthenticated={isAuthenticated} />;
+  }
+
+  renderLanding = () => <Landing />
 
   render() {
     return (
       <App>
         <Switch>
-          <Route path="/" render={this.renderLogin} />
-          <Route path="/player" render={this.renderToggle} />
+          <Route path="/login" render={this.renderLogin} />
+          <Route path="/landing" render={this.renderLanding} />
         </Switch>
       </App>
     );
   }
 }
 
-export default ProtectedRoutes;
+ProtectedRoutes.defaultProps = {
+  isAuthenticated: false,
+};
+
+ProtectedRoutes.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+  isAuthenticated: PropTypes.bool,
+};
+
+const mapStateToProps = (state) => ({
+  isAuthenticated: selectors.isAuthenticated(state),
+});
+
+const container = connect(mapStateToProps, null)(ProtectedRoutes);
+
+export default withRouter(container);

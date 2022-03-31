@@ -3,12 +3,15 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
+import { authenticateUser } from '../../state/ducks/user/actions';
 
 import './Login.scss';
 
-function Login() {
+function Login({ isAuthenticated, history }) {
+  const dispatch = useDispatch();
   const [walletAccount, setWalletAccount] = useState('');
-  const [isConnected, setIsConnected] = useState(false);
   const [currentChain, setCurrentChain] = useState('');
 
   useEffect(() => {
@@ -27,15 +30,13 @@ function Login() {
   }, []);
 
   useEffect(() => {
-    setIsConnected(!!walletAccount);
-  }, [walletAccount]);
+    if (isAuthenticated) {
+      history.push('/landing');
+    }
+  }, [isAuthenticated]);
 
   const handleConnectWallet = async () => {
-    console.log('Connecting MetaMask...');
-    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-    const account = accounts[0];
-    console.log('Account: ', account);
-    setWalletAccount(account);
+    dispatch(authenticateUser());
   };
 
   return (
@@ -46,15 +47,19 @@ function Login() {
         onClick={handleConnectWallet}
         src="/static/img/metamask.png"
       />
-      <h1>
-        Wallet Address:
-        {walletAccount}
-      </h1>
     </div>
   );
 }
-// Login.propTypes = {
-//   children: PropTypes.node.isRequired,
-// };
+
+Login.defaultProps = {
+  isAuthenticated: false,
+};
+
+Login.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+  isAuthenticated: PropTypes.bool,
+};
 
 export default Login;

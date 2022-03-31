@@ -12,7 +12,6 @@ const userSchema = new Schema(
     role: {
       type: String, enum: ['artist', 'user'], default: 'user',
     },
-    uid: { type: String, required: false },
     active: { type: Boolean, default: false },
   },
   { timestamps: true },

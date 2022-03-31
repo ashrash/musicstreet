@@ -1,29 +1,29 @@
 const router = require('express').Router();
-const { mint, store } = require('../service/nftService');
-const { logger } = require('../lib');
+const {
+  create,
+  get,
+} = require('../service/userService');
 
-const mintNFT = async (req, res) => {
+const createUser = async (req, res) => {
   try {
-    const { contractAddress, metaDataURL } = req.body;
-    const data = await mint(contractAddress, metaDataURL);
+    const { name, email, walletAddress } = req.body;
+    const data = await create({ name, email, walletAddress });
     return res.status(200).json(data);
   } catch (e) {
-    logger.error(`${JSON.stringify(e)}`);
     return res.sendStatus(500);
   }
 };
 
-const storeNFT = async (req, res) => {
+const getUser = async (req, res) => {
   try {
-    const { file } = req.body;
-    const data = await store(file);
+    const { walletAddress } = req.params;
+    const data = await get(walletAddress);
     return res.status(200).json(data);
   } catch (e) {
-    logger.error(`${JSON.stringify(e)}`);
     return res.sendStatus(500);
   }
 };
 
-router.route('/').post(mintNFT);
-router.route('/:walletId').post(storeNFT);
+router.route('/').post(createUser);
+router.route('/:walletAddress').get(getUser);
 module.exports = router;

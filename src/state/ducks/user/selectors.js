@@ -1,9 +1,15 @@
 import * as R from 'ramda';
 
-const getSelected = R.pathOr(false, ['users', 'isSelected']);
+const getUserName = (state) => R.pathOr('', ['user', 'name'], state);
+
+const getWalletAddress = (state) => R.pathOr(null, ['user', 'walletAddress'], state);
+
+const isAuthenticated = (state) => !R.isNil(getWalletAddress(state));
 
 const selectors = {
-  getSelected,
+  getUserName,
+  getWalletAddress,
+  isAuthenticated,
 };
 
 export default selectors;

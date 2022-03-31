@@ -1,5 +1,6 @@
 import {
   SET_VALUE,
+  SET_WALLET_ADDRESS,
 } from './types';
 
 const defaultState = {
@@ -12,6 +13,13 @@ const reducer = (state = defaultState, action) => {
       return {
         ...state,
         isSelected: true,
+      };
+    }
+    case SET_WALLET_ADDRESS: {
+      const user = action.payload;
+      return {
+        ...state,
+        ...user,
       };
     }
     default:

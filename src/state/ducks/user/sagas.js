@@ -1,15 +1,26 @@
 /* eslint-disable import/prefer-default-export */
 import {
-  takeEvery, all, put,
+  takeEvery, all, put, call,
 } from 'redux-saga/effects';
-import { BUTTON_CLICK, SET_VALUE, SET_WALLET_ADDRESS } from './types';
+import axios from 'axios';
+import {
+  BUTTON_CLICK, SET_VALUE, SET_WALLET_ADDRESS, AUTHENTICATE_USER,
+} from './types';
 
 function* buttonClick() {
   yield put({ type: SET_VALUE, payload: true });
 }
 
 function* authUser() {
-  yield put({ type: SET_VALUE, payload: true });
+  console.log('Connecting MetaMask...');
+  const accounts = yield call(window.ethereum.request, { method: 'eth_requestAccounts' });
+  const account = accounts[0];
+  console.log('Account: ', account);
+  const user = yield call(axios.get, `/api/user/${account}`);
+  const { data } = user;
+  if (user) {
+    yield put({ type: SET_WALLET_ADDRESS, payload: data });
+  }
 }
 
 function* watchButtonClick() {
@@ -17,7 +28,7 @@ function* watchButtonClick() {
 }
 
 function* watchAuthUser() {
-  yield takeEvery(SET_WALLET_ADDRESS, authUser);
+  yield takeEvery(AUTHENTICATE_USER, authUser);
 }
 
 export function* combinedSaga() {
