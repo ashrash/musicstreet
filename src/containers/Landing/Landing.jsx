@@ -1,9 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import { connect } from 'react-redux';
-import MaterialTable from 'components/MaterialTable';
-import Dropdown from 'components/InputFields/Dropdown';
-import TextField from '@material-ui/core/TextField';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import Paper from '@material-ui/core/Paper';
@@ -18,13 +15,7 @@ class Landing extends React.PureComponent {
     };
     return (
       <div className="toggle">
-        <Paper className="filterFields">
-          <TextField
-            variant="outlined"
-          />
-          <Dropdown />
-        </Paper>
-        <MaterialTable />
+        <Paper className="filterFields" />
         <Fab aria-label="add" color="inherit" style={fabStyle}>
           <AddIcon />
         </Fab>

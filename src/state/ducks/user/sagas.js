@@ -4,7 +4,7 @@ import {
 } from 'redux-saga/effects';
 import axios from 'axios';
 import {
-  BUTTON_CLICK, SET_VALUE, SET_WALLET_ADDRESS, AUTHENTICATE_USER,
+  BUTTON_CLICK, SET_VALUE, SET_WALLET_ADDRESS, AUTHENTICATE_USER, NEW_USER,
 } from './types';
 
 function* buttonClick() {
@@ -20,6 +20,8 @@ function* authUser() {
   const { data } = user;
   if (user) {
     yield put({ type: SET_WALLET_ADDRESS, payload: data });
+  } else {
+    yield put({ type: NEW_USER, payload: account });
   }
 }
 

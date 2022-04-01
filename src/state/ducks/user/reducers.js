@@ -1,6 +1,7 @@
 import {
   SET_VALUE,
   SET_WALLET_ADDRESS,
+  NEW_USER,
 } from './types';
 
 const defaultState = {
@@ -9,6 +10,14 @@ const defaultState = {
 
 const reducer = (state = defaultState, action) => {
   switch (action.type) {
+    case NEW_USER: {
+      const account = action.payload;
+      return {
+        ...state,
+        newUser: true,
+        account,
+      };
+    }
     case SET_VALUE: {
       return {
         ...state,
