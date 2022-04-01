@@ -9,7 +9,7 @@ import { authenticateUser } from '../../state/ducks/user/actions';
 
 import './Login.scss';
 
-function Login({ isAuthenticated, history }) {
+function Login({ isAuthenticated, history, newUser }) {
   const dispatch = useDispatch();
   const [walletAccount, setWalletAccount] = useState('');
   const [currentChain, setCurrentChain] = useState('');
@@ -30,10 +30,10 @@ function Login({ isAuthenticated, history }) {
   }, []);
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (isAuthenticated || newUser) {
       history.push('/landing');
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, newUser]);
 
   const handleConnectWallet = async () => {
     dispatch(authenticateUser());
@@ -53,6 +53,7 @@ function Login({ isAuthenticated, history }) {
 
 Login.defaultProps = {
   isAuthenticated: false,
+  newUser: false,
 };
 
 Login.propTypes = {
@@ -60,6 +61,7 @@ Login.propTypes = {
     push: PropTypes.func,
   }).isRequired,
   isAuthenticated: PropTypes.bool,
+  newUser: PropTypes.bool,
 };
 
 export default Login;

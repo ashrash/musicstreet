@@ -13,20 +13,22 @@ class ProtectedRoutes extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
+    this.shouldRedirect = false;
   }
 
   componentDidMount() {
-    const { isAuthenticated, history } = this.props;
-    if (!isAuthenticated) {
-      history.push('/login');
+    const { isAuthenticated, history, newUser } = this.props;
+    this.shouldRedirect = true;
+    if (isAuthenticated || newUser) {
+      history.push('/landing');
     } else {
-      history.push('/player');
+      history.push('/login');
     }
   }
 
   renderLogin = () => {
-    const { isAuthenticated, history } = this.props;
-    return <Login history={history} isAuthenticated={isAuthenticated} />;
+    const { isAuthenticated, history, newUser } = this.props;
+    return <Login history={history} isAuthenticated={isAuthenticated} newUser={newUser} />;
   }
 
   renderLanding = () => <Landing />
@@ -45,6 +47,7 @@ class ProtectedRoutes extends React.Component {
 
 ProtectedRoutes.defaultProps = {
   isAuthenticated: false,
+  newUser: null,
 };
 
 ProtectedRoutes.propTypes = {
@@ -52,10 +55,12 @@ ProtectedRoutes.propTypes = {
     push: PropTypes.func,
   }).isRequired,
   isAuthenticated: PropTypes.bool,
+  newUser: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => ({
   isAuthenticated: selectors.isAuthenticated(state),
+  newUser: selectors.getNewUser(state),
 });
 
 const container = connect(mapStateToProps, null)(ProtectedRoutes);

@@ -3,6 +3,7 @@ const SET_VALUE = 'app/user/SET_VALUE';
 const AUTHENTICATE_USER = 'app/user/AUTHENTICATE_USER';
 const SET_WALLET_ADDRESS = 'app/user/SET_WALLET_ADDRESS';
 const NEW_USER = 'app/user/NEW_USER';
+const SAVE_USER = 'app/user/SAVE_USER';
 
 export {
   BUTTON_CLICK,
@@ -10,4 +11,5 @@ export {
   AUTHENTICATE_USER,
   SET_WALLET_ADDRESS,
   NEW_USER,
+  SAVE_USER,
 };

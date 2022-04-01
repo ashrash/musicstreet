@@ -6,8 +6,12 @@ const {
 
 const createUser = async (req, res) => {
   try {
-    const { name, email, walletAddress } = req.body;
-    const data = await create({ name, email, walletAddress });
+    const {
+      name, email, walletAddress, role,
+    } = req.body;
+    const data = await create({
+      name, email, walletAddress, role,
+    });
     return res.status(200).json(data);
   } catch (e) {
     return res.sendStatus(500);

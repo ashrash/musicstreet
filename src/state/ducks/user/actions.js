@@ -2,6 +2,7 @@
 import {
   BUTTON_CLICK,
   AUTHENTICATE_USER,
+  SAVE_USER,
 } from './types';
 
 const onButtonClick = () => ({
@@ -12,7 +13,13 @@ const authenticateUser = () => ({
   type: AUTHENTICATE_USER,
 });
 
+const saveUser = (payload) => ({
+  type: SAVE_USER,
+  payload,
+});
+
 export {
   onButtonClick,
   authenticateUser,
+  saveUser,
 };

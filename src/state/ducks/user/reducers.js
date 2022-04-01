@@ -1,3 +1,4 @@
+import * as R from 'ramda';
 import {
   SET_VALUE,
   SET_WALLET_ADDRESS,
@@ -14,7 +15,7 @@ const reducer = (state = defaultState, action) => {
       const account = action.payload;
       return {
         ...state,
-        newUser: true,
+        newUser: !R.isNil(account) && true,
         account,
       };
     }

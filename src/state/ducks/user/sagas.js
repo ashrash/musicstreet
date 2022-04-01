@@ -1,10 +1,16 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable import/prefer-default-export */
 import {
-  takeEvery, all, put, call,
+  takeEvery, all, put, call, select,
 } from 'redux-saga/effects';
 import axios from 'axios';
+import selectors from './selectors';
 import {
-  BUTTON_CLICK, SET_VALUE, SET_WALLET_ADDRESS, AUTHENTICATE_USER, NEW_USER,
+  BUTTON_CLICK,
+  SET_VALUE,
+  SET_WALLET_ADDRESS,
+  AUTHENTICATE_USER, NEW_USER,
+  SAVE_USER,
 } from './types';
 
 function* buttonClick() {
@@ -18,10 +24,25 @@ function* authUser() {
   console.log('Account: ', account);
   const user = yield call(axios.get, `/api/user/${account}`);
   const { data } = user;
-  if (user) {
+  if (data) {
     yield put({ type: SET_WALLET_ADDRESS, payload: data });
   } else {
     yield put({ type: NEW_USER, payload: account });
+  }
+}
+
+function* saveUser(payload) {
+  const userData = payload.payload;
+  const walletAddress = yield select(selectors.getNewAccount);
+  const newUser = {
+    ...userData,
+    walletAddress,
+  };
+  const user = yield call(axios.post, '/api/user/', newUser);
+  const { data } = user;
+  if (data) {
+    yield put({ type: SET_WALLET_ADDRESS, payload: data });
+    yield put({ type: NEW_USER, payload: null });
   }
 }
 
@@ -33,9 +54,14 @@ function* watchAuthUser() {
   yield takeEvery(AUTHENTICATE_USER, authUser);
 }
 
+function* watchSaveUser() {
+  yield takeEvery(SAVE_USER, saveUser);
+}
+
 export function* combinedSaga() {
   yield all([
     watchButtonClick(),
     watchAuthUser(),
+    watchSaveUser(),
   ]);
 }
