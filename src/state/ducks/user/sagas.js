@@ -11,6 +11,7 @@ import {
   SET_WALLET_ADDRESS,
   AUTHENTICATE_USER, NEW_USER,
   SAVE_USER,
+  FETCH_NFT_DATA,
 } from './types';
 
 function* buttonClick() {
@@ -46,6 +47,10 @@ function* saveUser(payload) {
   }
 }
 
+function* getNFTUserData() {
+  const walletAddress = yield select(selectors.getNewAccount);
+  const user = yield call(axios.post, `/api/nft/${walletAddress}`);
+}
 function* watchButtonClick() {
   yield takeEvery(BUTTON_CLICK, buttonClick);
 }
@@ -56,6 +61,10 @@ function* watchAuthUser() {
 
 function* watchSaveUser() {
   yield takeEvery(SAVE_USER, saveUser);
+}
+
+function* watchGetNFTUserData() {
+  yield takeEvery(FETCH_NFT_DATA, getNFTUserData);
 }
 
 export function* combinedSaga() {

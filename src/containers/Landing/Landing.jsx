@@ -6,6 +6,7 @@ import Fab from '@material-ui/core/Fab';
 import PropTypes from 'prop-types';
 import AddIcon from '@material-ui/icons/Add';
 import Paper from '@material-ui/core/Paper';
+import Player from '../Player';
 import Signup from '../../components/Signup';
 import selectors from '../../state/ducks/user/selectors';
 import './Landing.scss';
@@ -18,9 +19,15 @@ class Landing extends React.PureComponent {
       bottom: 50,
       position: 'fixed',
     };
+    let landing = null;
+    if (newUser) {
+      landing = <Signup />;
+    } else {
+      landing = <Player className="footer" />;
+    }
     return (
       <div className="toggle">
-        {newUser && <Signup />}
+        {landing}
         <Fab aria-label="add" color="inherit" style={fabStyle}>
           <AddIcon />
         </Fab>

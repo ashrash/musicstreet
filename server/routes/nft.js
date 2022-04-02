@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { mint, store } = require('../service/nftService');
+const { mint, store, getCollection } = require('../service/nftService');
 
 const mintNFT = async (req, res) => {
   try {
@@ -21,6 +21,17 @@ const storeNFT = async (req, res) => {
   }
 };
 
+const getAllNFTByOwner = async (req, res) => {
+  try {
+    const { owner } = req.params;
+    const data = await getCollection(owner);
+    return res.status(200).json(data);
+  } catch (e) {
+    return res.sendStatus(500);
+  }
+};
+
+router.route('/:owner').get(getAllNFTByOwner);
 router.route('/mint').post(mintNFT);
 router.route('/store').post(storeNFT);
 module.exports = router;
