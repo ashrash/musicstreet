@@ -4,6 +4,7 @@ import {
   AUTHENTICATE_USER,
   SAVE_USER,
   FETCH_NFT_DATA,
+  CREATE_NFT,
 } from './types';
 
 const onButtonClick = () => ({
@@ -24,9 +25,15 @@ const fetchNFTData = (payload) => ({
   payload,
 });
 
+const createNFT = (payload) => ({
+  type: CREATE_NFT,
+  payload,
+});
+
 export {
   onButtonClick,
   authenticateUser,
   saveUser,
   fetchNFTData,
+  createNFT,
 };

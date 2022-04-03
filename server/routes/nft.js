@@ -13,7 +13,7 @@ const mintNFT = async (req, res) => {
 
 const storeNFT = async (req, res) => {
   try {
-    const { file } = req.body;
+    const { file } = req.files;
     const data = await store(file);
     return res.status(200).json(data);
   } catch (e) {
@@ -33,5 +33,4 @@ const getAllNFTByOwner = async (req, res) => {
 
 router.route('/:owner').get(getAllNFTByOwner);
 router.route('/mint').post(mintNFT);
-router.route('/store').post(storeNFT);
 module.exports = router;

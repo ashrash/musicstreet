@@ -5,30 +5,31 @@ import { connect } from 'react-redux';
 import Fab from '@material-ui/core/Fab';
 import PropTypes from 'prop-types';
 import AddIcon from '@material-ui/icons/Add';
-import Paper from '@material-ui/core/Paper';
-import Player from '../Player';
 import Signup from '../../components/Signup';
 import selectors from '../../state/ducks/user/selectors';
 import './Landing.scss';
 
 class Landing extends React.PureComponent {
+  handleClick = () => {
+    const { history } = this.props;
+    history.push('/createnft');
+  }
+
   render() {
     const { newUser } = this.props;
     const fabStyle = {
-      right: 50,
-      bottom: 50,
+      right: '3rem',
+      bottom: '10rem',
       position: 'fixed',
     };
     let landing = null;
     if (newUser) {
       landing = <Signup />;
-    } else {
-      landing = <Player className="footer" />;
     }
     return (
       <div className="toggle">
         {landing}
-        <Fab aria-label="add" color="inherit" style={fabStyle}>
+        <Fab aria-label="add" color="inherit" onClick={this.handleClick} style={fabStyle}>
           <AddIcon />
         </Fab>
       </div>
@@ -41,6 +42,9 @@ Landing.defaultProps = {
 };
 
 Landing.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
   newUser: PropTypes.bool,
 };
 

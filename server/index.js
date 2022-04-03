@@ -1,6 +1,11 @@
 const express = require('express');
 const path = require('path');
+const bodyParser = require('body-parser');
+const multer = require('multer');
 const { logger } = require('./lib/winston');
+const { store } = require('./service/nftService');
+
+const upload = multer();
 
 const routes = require('./routes');
 
@@ -14,6 +19,14 @@ app.use(express.static(path.resolve(__dirname, '../dist/')));
 
 // app.set('views', path.join(__dirname, 'views'));
 // app.set('view engine', 'pug');
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+app.post('/store', upload.single('file'), async (req, res) => {
+  const { file } = req;
+  const data = await store(file);
+  return res.status(200).json(data);
+});
 
 routes(app);
 

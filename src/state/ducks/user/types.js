@@ -5,6 +5,8 @@ const SET_WALLET_ADDRESS = 'app/user/SET_WALLET_ADDRESS';
 const NEW_USER = 'app/user/NEW_USER';
 const SAVE_USER = 'app/user/SAVE_USER';
 const FETCH_NFT_DATA = 'app/user/FETCH_NFT_DATA';
+const SET_NFT_DATA = 'app/user/SET_NFT_DATA';
+const CREATE_NFT = 'app/user/CREATE_NFT';
 
 export {
   BUTTON_CLICK,
@@ -14,4 +16,6 @@ export {
   NEW_USER,
   SAVE_USER,
   FETCH_NFT_DATA,
+  SET_NFT_DATA,
+  CREATE_NFT,
 };

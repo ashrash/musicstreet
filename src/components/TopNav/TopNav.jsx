@@ -39,9 +39,11 @@ class TopNav extends React.PureComponent {
         position="static"
       >
         <Toolbar style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <Typography noWrap style={{ color: '#1ed760' }} variant="h6">
-            Music Street
-          </Typography>
+          <Link style={{ textDecoration: 'none' }} to="/landing">
+            <Typography noWrap style={{ color: '#1ed760' }} variant="h6">
+              Music Street
+            </Typography>
+          </Link>
           <Button
             className="text"
             color="primary"
@@ -57,10 +59,10 @@ class TopNav extends React.PureComponent {
             onClose={this.handleClose}
             open={Boolean(anchorEl)}
           >
-            <Link to="/profile">
+            <Link style={{ textDecoration: 'none', color: 'black' }} to="/profile">
               <MenuItem onClick={this.handleClose}>Profile</MenuItem>
             </Link>
-            <Link to="/profile">
+            <Link style={{ textDecoration: 'none', color: 'black' }} to="/profile">
               <MenuItem onClick={this.handleClose}>My NFTs</MenuItem>
             </Link>
             <MenuItem onClick={this.handleClose}>Logout</MenuItem>

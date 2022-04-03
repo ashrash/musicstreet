@@ -6,7 +6,9 @@ import {
 } from 'react-router-dom';
 import App from 'components/App';
 import Login from 'containers/Login';
+import Profile from 'containers/Profile';
 import Landing from 'containers/Landing';
+import Create from 'containers/Create';
 import selectors from '../state/ducks/user/selectors';
 
 class ProtectedRoutes extends React.Component {
@@ -31,14 +33,26 @@ class ProtectedRoutes extends React.Component {
     return <Login history={history} isAuthenticated={isAuthenticated} newUser={newUser} />;
   }
 
-  renderLanding = () => <Landing />
+  renderProfile = () => {
+    const { isAuthenticated, history } = this.props;
+    return <Profile history={history} isAuthenticated={isAuthenticated} />;
+  }
+
+  renderLanding = () => {
+    const { history } = this.props;
+    return <Landing history={history} />;
+  }
+
+  renderCreate = () => <Create />
 
   render() {
     return (
       <App>
         <Switch>
           <Route path="/login" render={this.renderLogin} />
+          <Route path="/profile" render={this.renderProfile} />
           <Route path="/landing" render={this.renderLanding} />
+          <Route path="/createnft" render={this.renderCreate} />
         </Switch>
       </App>
     );

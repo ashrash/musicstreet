@@ -3,6 +3,7 @@ import {
   SET_VALUE,
   SET_WALLET_ADDRESS,
   NEW_USER,
+  SET_NFT_DATA,
 } from './types';
 
 const defaultState = {
@@ -11,6 +12,13 @@ const defaultState = {
 
 const reducer = (state = defaultState, action) => {
   switch (action.type) {
+    case SET_NFT_DATA: {
+      const data = action.payload;
+      return {
+        ...state,
+        nftData: data,
+      };
+    }
     case NEW_USER: {
       const account = action.payload;
       return {

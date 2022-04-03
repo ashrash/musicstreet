@@ -18,14 +18,12 @@ const mint = async (contractAddress, metaDataURL) => {
 
 const store = async (file) => {
   const client = new NFTStorage({ token: NFT_STORAGE_API_KEY });
+  const arraybuffer = new Blob([file.buffer]);
+
   const metadata = await client.store({
     name: 'ExampleNFT',
     description: 'My ExampleNFT is an awesome artwork!',
-    image: new File(
-      [await fs.promises.readFile('assets/MyExampleNFT.png')],
-      'MyExampleNFT.png',
-      { type: 'image/png' },
-    ),
+    image: arraybuffer,
   });
   console.log('Metadata stored on Filecoin and IPFS with URL:', metadata.url);
   return metadata.url;
